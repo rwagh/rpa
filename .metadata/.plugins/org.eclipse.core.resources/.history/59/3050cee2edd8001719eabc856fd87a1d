@@ -1,0 +1,442 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Configuration</title>
+<%@include file="includes.html"%>
+</head>
+<body>
+	<%@include file="header.html"%>
+
+	<div class="container-fluid" id="placeholder">
+		<div class="row">
+			<div class="col-lg-12 col-md-12">&nbsp;</div>
+		</div>
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#tabFunctions">Functions</a></li>
+			<li><a data-toggle="tab" href="#home">Line Of Businesses</a></li>
+			<li><a data-toggle="tab" href="#menu1">Processes</a></li>
+			<li><a data-toggle="tab" href="#menu2">Activities</a></li>			
+			<li><a data-toggle="tab" href="#menu3">Steps</a></li>
+		</ul>
+		<div class="tab-content" id="tabholder">
+			<div class="row">
+				<div class="col-lg-12 col-md-12">&nbsp;</div>
+			</div>
+			<div id="tabFunctions" class="tab-pane fade in active">
+			<div class="list-group-item">
+					<div class="form-group">
+						<div class="row">
+							<div class="col-lg-4 col-md-4">
+								<input type="text" placeholder="Search By Name"
+									title="Search By Name" id="SearchFunctionName" class="form-control input-sm" />
+							</div>
+							<div class="col-lg-1 col-md-1">
+								<button type="button" class="btn btn-primary btn-block btn-sm" id="FunctionSearch">Search</button>
+							</div>
+							<div class="col-lg-2 col-md-2 col-lg-offset-5 col-md-offset-5">
+								<a role="button" class="btn btn-primary btn-block addfunc" title="Add New Function" data-toggle="modal" data-target="#functionModal"><i class="fa fa-plus" aria-hidden="true"></i> Add New Function</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<table class="table table-bordered table-condensed table-hover">
+					<thead>
+						<tr>							
+							<th>Name</th>
+							<th>Description</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody id="func_tbody">
+					</tbody>
+				</table>
+			</div>
+			
+			<div id="home" class="tab-pane fade">
+				<div class="list-group-item">
+					<div class="form-group">
+						<div class="row">
+							<div class="col-lg-4 col-md-4">
+								<input type="text" placeholder="Search By Name" id="LobSearch"
+									title="Search By Name" class="form-control input-sm" />
+							</div>
+							<div class="col-lg-1 col-md-1">
+								<button class="btn btn-primary btn-block btn-sm" id="SearchLob">Search</button>
+							</div>
+							<div class="col-lg-2 col-md-2 col-lg-offset-5 col-md-offset-5">								
+								<a role="button" class="btn btn-primary btn-block addlob" title="Add New Line Of Business" data-toggle="modal" data-target="#lobModal"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<table class="table table-bordered table-condensed table-hover">
+					<thead>
+						<tr>			
+							<th>Function</th>				
+							<th>Name</th>
+							<th>Description</th>
+							<th style="width:150px">Actions</th>
+						</tr>
+					</thead>
+					<tbody id="lob_tbody">
+					</tbody>
+				</table>
+			</div>
+			<div id="menu1" class="tab-pane fade">
+				<div class="list-group-item">
+					<div class="form-group">
+						<div class="row">
+							<div class="col-lg-4 col-md-4">
+								<input type="text" placeholder="Search By Name" id="ProcessSearch"
+									title="Search By Name" class="form-control input-sm" />
+							</div>
+							<div class="col-lg-1 col-md-1">
+								<button class="btn btn-primary btn-block btn-sm" id="SearchProcess">Search</button>
+							</div>
+							<div class="col-lg-2 col-md-2 col-lg-offset-5 col-md-offset-5">								
+								<a role="button" class="btn btn-primary btn-block addlob" title="Add New Line Of Business" data-toggle="modal" data-target="#lobModal"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<table class="table table-bordered table-condensed table-hover">
+					<thead>
+						<tr>			
+							<th>Lob</th>				
+							<th>Name</th>
+							<th>Description</th>
+							<th style="width:150px">Actions</th>
+						</tr>
+					</thead>
+					<tbody id="process_tbody">
+					</tbody>
+				</table>
+			</div>
+			<div id="menu2" class="tab-pane fade">
+				<h3>Activities</h3>
+				<p>Some content in menu 2.</p>
+			</div>	
+			<div id="menu3" class="tab-pane fade">
+				<h3>Steps</h3>
+				<p>Some content in menu 2.</p>
+			</div>		
+		</div>
+	</div>
+	<%@include file="footer.html"%>
+	<div id="functionModal" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-sm">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Function</h4>
+				</div>
+				<div class="modal-body">
+					<form id="functionForm">
+					<input id="ftype" name="ftype" type="hidden" value="1">
+					<input id="id" name="id" type="hidden">
+						<div class="row">
+							<div class="col-lg-12 col-md-12">
+								<div class="form-group">
+									<label>Function Name</label> 
+									<input type="text" id="FunctionName" name="FunctionName"
+										placeholder="Function Name" title="Function Name"
+										class="form-control input-sm" />
+								</div>
+							</div>
+						</div>					
+						<div class="row">
+							<div class="col-lg-12 col-md-12">
+								<div class="form-group">
+									<label>Description</label> 
+									<textarea type="text" id="Description" name="Description"
+										placeholder="Description" title="Description"
+										class="form-control input-sm" rows="3"></textarea>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="SaveFunction" class="btn btn-default btn-sm">Save</button>
+					<button type="button" class="btn btn-danger btn-sm"
+						data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="lobModal" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-sm">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Line of Business</h4>
+				</div>
+				<div class="modal-body">
+					<form id="lobForm">
+						<input id="type" name="type" type="hidden" value="1">
+						<input id="id" name="id" type="hidden">
+						<div class="row">
+							<div class="col-lg-12 col-md-12">
+								<div class="form-group">
+									<label>Lob Name</label> 
+									<input type="text" id="LobName" name="LobName"
+										placeholder="Lob Name" title="Lob Name"
+										class="form-control input-sm" />
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12 col-md-12">
+								<div class="form-group">
+									<label>Description</label> 
+									<textarea type="text" id="Description" name="Description"
+										placeholder="Description" title="Description"
+										class="form-control input-sm" rows="3"></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12 col-md-12">
+								<div class="form-group">
+									<label>Function</label> <select
+										title="Select Function" id="FunctionId" name="FunctionId" class="form-control input-sm">
+										<option value="">Select</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="SaveLob" class="btn btn-default btn-sm"
+						data-dismiss="modal">Save</button>
+					<button type="button" class="btn btn-danger btn-sm"
+						data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="processModal" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-sm">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Add New Process</h4>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="row">
+							<div class="col-lg-12 col-md-12">
+								<div class="form-group">
+									<label>Process Name</label> 
+									<input type="text"
+										placeholder="Process Name" title="Process Name"
+										class="form-control input-sm" />
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12 col-md-12">
+								<div class="form-group">
+									<label>Line Of Business</label> <select
+										title="Select Line Of Business" class="form-control input-sm">
+										<option value="">Select</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default btn-sm"
+						data-dismiss="modal">Save</button>
+					<button type="button" class="btn btn-danger btn-sm"
+						data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(function() {
+			$("#placeholder").height($(document).height() - 85);
+			$(window).resize(function() {
+				$("#placeholder").height($(document).height() - 85);
+			});
+
+			$('.addfunc').click(function () {
+				$("#functionModal #ftype").val(1);
+				$("#functionModal #FunctionName").val("");
+				$("#functionModal #Description").val("");
+			});
+				
+			$('.addlob').click(function () {
+				$("#lobModal #id").val("");
+				$("#lobModal #type").val(1);
+				$("#lobModal #LobName").val("");
+				$("#lobModal #Description").val("");
+				$("#lobModal #FunctionId").val("");
+			});
+			
+			$("#FunctionSearch").click(function(){				
+				$.getJSON("function?Name=" + $("#SearchFunctionName").val(), { Name: $("#SearchFunctionName").val() }, function(result) {
+					$("#func_tbody").empty();
+					$.each(result, function(index, item) {
+						$.get("templates/func_item.html", function(tmp_data) {
+							$.tmpl(tmp_data, item).appendTo("#func_tbody");
+						});
+					});
+				});
+			});
+			
+			$("#SearchLob").click(function(){				
+				$.getJSON("lobs?Name=" + $("#LobSearch").val(), { Name: $("#LobSearch").val() }, function(result) {
+					$("#lob_tbody").empty();
+					$.each(result, function(index, item) {
+						$.get("templates/lob_item.html", function(tmp_data) {
+							$.tmpl(tmp_data, item).appendTo("#lob_tbody");
+						});
+					});
+				});
+				return false;
+			});
+			
+			$.getJSON("function", {}, function(result) {
+				$("#func_tbody").empty();
+				$.each(result, function(index, item) {
+					$("#FunctionId").append("<option value=" + item.id +">" + item.name +"</option>");
+					$.get("templates/func_item.html", function(tmp_data) {
+						$.tmpl(tmp_data, item).appendTo("#func_tbody");
+					});
+				});
+			});
+			
+			$.getJSON("lobs", {}, function(result) {
+				$("#lob_tbody").empty();
+				$.each(result, function(index, item) {
+					$.get("templates/lob_item.html", function(tmp_data) {
+						$.tmpl(tmp_data, item).appendTo("#lob_tbody");
+					});
+				});
+			});
+			
+			$("#SaveFunction").click(function(){
+				var jsonForm = $("#functionForm").serializeObject();
+				$.ajax(
+			   	{	
+			      data: jsonForm,   //mydata={"name":"abc","age":"21"}
+			      method:"POST",
+			      url: "function",
+			      success: function(result){
+		    	  	$("#func_tbody").empty();
+					$.each(result, function(index, item) {
+						$.get("templates/func_item.html", function(tmp_data) {
+							$.tmpl(tmp_data, item).appendTo("#func_tbody");
+						});
+					});
+					$("#functionModal").modal("hide");
+			      }
+				}); 
+			});
+			
+			$("#SaveLob").click(function(){
+				var jsonForm = $("#lobForm").serializeObject();
+				console.log(jsonForm);
+				$.ajax(
+			   	{	
+			      data: jsonForm,
+			      method:"POST",
+			      url: "lobs",
+			      success: function(result){
+		    	  	$("#lob_tbody").empty();
+					$.each(result, function(index, item) {
+						$.get("templates/lob_item.html", function(tmp_data) {
+							$.tmpl(tmp_data, item).appendTo("#lob_tbody");
+						});
+					});
+					$("#lobModal").modal("hide");
+			      }
+				}); 
+			});
+			$("#func_tbody").on('click','.delete',function(){
+				if(confirm("Are you sure, want to delete?")){
+					var key=$(this).data("id");
+					var jsonForm = { ftype: 3, id: key };
+					console.log(jsonForm);
+					$.ajax(
+				   	{				   
+				   	  date: jsonForm,
+				      method:"POST",
+				      url: "function?ftype=3&id=" + key,
+				      success: function(result){
+			    	  	$("#func_tbody").empty();
+						$.each(result, function(index, item) {
+							$.get("templates/func_item.html", function(tmp_data) {
+								$.tmpl(tmp_data, item).appendTo("#func_tbody");
+							});
+						});
+						$("#functionModal").modal("hide");
+				      }
+					}); 
+				}
+			});
+			
+			$("#func_tbody").on('click','.edit',function(){				
+				var id=$(this).data("id");
+				var name=$(this).data("name");
+				var desc=$(this).data("desc");
+				$("#functionModal").modal("show");
+				$("#ftype").val(2);
+				$("#id").val(id);
+				$("#FunctionName").val(name);
+				$("#Description").val(desc);
+			});
+			
+			$("#lob_tbody").on('click','.edit',function(){				
+				var id=$(this).data("id");
+				var name=$(this).data("name");
+				var desc=$(this).data("desc");
+				var funcid=$(this).data("funcid");
+				$("#lobModal").modal("show");
+				$("#lobModal #type").val(2);
+				$("#lobModal #id").val(id);
+				$("#lobModal #LobName").val(name);
+				$("#lobModal #Description").val(desc);
+				if(funcid > 0){
+					$("#lobModal #FunctionId").val(funcid);
+				}else{
+					$("#lobModal #FunctionId").val("");
+				}
+			});
+			
+			$("#lob_tbody").on('click','.delete',function(){
+				if(confirm("Are you sure, want to delete?")){
+					var key=$(this).data("id");
+					var jsonForm = { type: 3, id: key };
+					console.log(jsonForm);
+					$.ajax(
+				   	{				   
+				   	  date: jsonForm,
+				      method:"POST",
+				      url: "lobs?type=3&id=" + key,
+				      success: function(result){
+			    	  	$("#lob_tbody").empty();
+						$.each(result, function(index, item) {
+							$.get("templates/lob_item.html", function(tmp_data) {
+								$.tmpl(tmp_data, item).appendTo("#lob_tbody");
+							});
+						});
+						$("#lobModal").modal("hide");
+				      }
+					}); 
+				}
+			});
+		});
+	</script>
+</body>
+</html>

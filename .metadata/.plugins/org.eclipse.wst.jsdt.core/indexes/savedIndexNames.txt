@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+E:\JavaWorkspace\AgileMate_2017\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+378473350.index
+3270345955.index
+3798006528.index
+342751091.index
+3133965522.index
+2789571774.index

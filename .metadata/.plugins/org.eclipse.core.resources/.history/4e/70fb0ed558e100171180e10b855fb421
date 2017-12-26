@@ -1,0 +1,37 @@
+<%@ page language="java" contentType="text/html;charset=UTF-8" %>
+<%@ page import="rpa.models.UserAccount"%>
+<%@ page import="com.google.gson.Gson"%>
+<% 	
+	UserAccount account = null;
+	if(session.getAttribute("userinfo")!=null){				
+		String ujson =  String.valueOf(session.getAttribute("userinfo"));
+		account = new Gson().fromJson(ujson, UserAccount.class);
+	}
+%>
+<header>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<div>
+					<img style="height: auto; width: 40%; margin-top: 5px;"
+						src="assets/images/logo.png">
+				</div>			
+			</div>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="index.jsp">Home</a></li>
+				<li><a href="dashboard.jsp">Dashboard</a></li>
+				<li><a href="config.jsp">Config</a></li>
+				<%			
+					if(account!=null){
+						String role = account.getRole();						
+						if(role == "Administrator"){				
+		 					out.println("<li><a href=\"admin.jsp\">Administration</a></li>");		 		
+						}
+					}
+			 	%>
+				<li><a role="button" class="changepwd" data-toggle="modal" data-target="#changePasswordModal">Change Password</a></li>
+				<li><a href="#">Sign Out</a></li>
+			</ul>
+		</div>
+	</nav>
+</header>

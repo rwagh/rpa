@@ -1,0 +1,11 @@
+127.0.0.1 - - [08/Dec/2017:10:08:45 +0530] "GET / HTTP/1.1" 404 1070
+0:0:0:0:0:0:0:1 - - [08/Dec/2017:10:08:46 +0530] "GET /rpa/ HTTP/1.1" 200 3084
+0:0:0:0:0:0:0:1 - - [08/Dec/2017:10:08:46 +0530] "GET /rpa/assets/bootstrap/css/bootstrap.min.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [08/Dec/2017:10:08:46 +0530] "GET /rpa/assets/css/site.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [08/Dec/2017:10:08:46 +0530] "GET /rpa/assets/bootstrap/js/bootstrap.min.js HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [08/Dec/2017:10:08:46 +0530] "GET /rpa/assets/js/jquery-3.2.1.min.js HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [08/Dec/2017:10:08:46 +0530] "GET /rpa/assets/js/split.min.js HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [08/Dec/2017:10:08:46 +0530] "GET /rpa/assets/js/site.js HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [08/Dec/2017:10:08:46 +0530] "GET /rpa/assets/js/home.js HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [08/Dec/2017:10:08:46 +0530] "GET /rpa/assets/images/logo.png HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [08/Dec/2017:10:08:46 +0530] "GET /rpa/function HTTP/1.1" 200 105

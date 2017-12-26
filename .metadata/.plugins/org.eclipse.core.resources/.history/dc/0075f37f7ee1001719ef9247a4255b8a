@@ -1,0 +1,7 @@
+<tr>	
+	<td >${name}</td>	
+	<td >${status}</td>
+	<td style="width:150px">
+		<a role="button" class="start" data-id="${id}" data-name="${name}" data-desc="${status}" data-pid="${processId}"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> Start</a>
+		</td>
+</tr>

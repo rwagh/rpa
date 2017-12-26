@@ -1,0 +1,56 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Home</title>
+<%@include file="includes.html"%>
+<%@include file="in.jsp"%>
+</head>
+<body>
+	<%@include file="header.jsp"%>
+	<div class="container-fluid">
+		<div class="row" style="background-color: #f9f3f4;">
+			<div class="col-lg-4 col-md-4" style="margin-top: 15px"
+				id="FunctionArea">
+				<div class="form-group">
+					<select title="Select Function" id="FunctionId" name="FunctionId"
+						class="form-control input-sm">
+						<option value="">Select Function</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-4" style="margin-top: 15px">
+				<div class="form-group">
+					<select title="Select Lob" id="LobId" name="LobId"
+						class="form-control input-sm">
+						<option value="">Select Lob</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-4" style="margin-top: 15px">
+				<div class="form-group">
+					<select title="Select Process" id="ProcessId" name="ProcessId"
+						class="form-control input-sm">
+						<option value="">Select Process</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="example-1" style="padding-top: 15px">
+			<table class="table table-bordered table-condensed table-hover">
+				<tr>
+					<th>Process</th>
+					<th>Actions</th>
+					<th>Status</th>
+				</tr>
+				<tbody id="home_tbody">
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<%@include file="footer.html"%>
+	<script type="text/javascript" src="assets/js/home.js"></script>
+</body>
+</html>

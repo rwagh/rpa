@@ -1,0 +1,13 @@
+<tr>	
+	<td >${activityName}</td>
+	<td >${name}</td>
+	<td >${description}</td>
+	<td>
+	{{if required == 0}}
+		Yes
+	{{else}}
+		No
+	{{/if}}
+	</td>
+	<td style="width:150px"><a role="button" class="edit" data-id="${id}" data-name="${name}" data-desc="${description}" data-funcid="${functionId}" data-lobid="${lobId}" data-procid="${processId}" data-acid="${activityId}" data-req="${required}">Edit</a> | <a role="button"  data-id="${id}" class="delete">Delete</a></td>
+</tr>

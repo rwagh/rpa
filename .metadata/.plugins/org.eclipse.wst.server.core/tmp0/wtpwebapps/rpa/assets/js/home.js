@@ -1,0 +1,75 @@
+$(function(){
+	$(".example-1").height($(document).height() - 145);
+	$(window).resize(function() {
+		$(".example-1").height($(document).height() - 145);
+	});
+	/*Split([ '#one', '#two' ], {
+		sizes : [ 25, 75 ],
+		minSize : 150
+	});*/
+
+	/*$('.tree li:has(ul)').addClass('parent_li').find(' > span').attr(
+			'title', 'Collapse this branch');
+	$('.tree li.parent_li > span').on('click', function(e) {
+		var children = $(this).parent('li.parent_li').find(
+				' > ul > li');
+		if (children.is(":visible")) {
+			children.hide('fast');
+			$(this).attr('title', 'Expand this branch').find(
+					' > i').addClass('icon-plus-sign')
+					.removeClass('icon-minus-sign');
+		} else {
+			children.show('fast');
+			$(this).attr('title', 'Collapse this branch').find(
+					' > i').addClass('icon-minus-sign')
+					.removeClass('icon-plus-sign');
+		}
+		e.stopPropagation();
+	});*/
+	
+	$.getJSON("authenticate", {}, function(result) {		
+		var fid = result.account.functionId;		
+		if(fid != 0){
+			$("#FunctionArea").hide();
+		}else{
+			$("#FunctionArea").show();
+		}
+		$.getJSON("lobs", {}, function(data) {			
+			$("#LobId").empty();
+			$("#LobId").append("<option value=''>Select Lob</option>")
+			$.each(data, function(index, item) {
+				if(item.functionId == fid){
+					$("#LobId").append("<option value='" + item.id +"'>" + item.name +"</option>")
+				}
+			});
+		});
+		$("#ProcessId").empty();
+		$("#ProcessId").append("<option value=''>Select Process</option>")
+	});
+	
+	/*$.getJSON("function", {}, function(result) {
+		$("#FunctionId").empty();
+		$("#FunctionId").append("<option value=''>Select Function</option>")
+		$.each(result, function(index, item) {
+			$("#FunctionId").append("<option value='" + item.id +"'>" + item.name +"</option>")
+		});
+	});*/
+	
+	
+	$("#LobId").change(function(){
+		var lid = $(this).val();		
+		$.getJSON("manageprocess", {}, function(result) {			
+			$("#ProcessId").empty();
+			$("#ProcessId").append("<option value=''>Select Process</option>")
+			$("#home_tbody").empty();
+			$.each(result, function(index, item) {
+				if(item.lobId == lid && item.parentId == 0 ){
+					$("#ProcessId").append("<option value='" + item.id +"'>" + item.name +"</option>")
+					$.get("templates/home_item.html", function(tmp_data) {
+						$.tmpl(tmp_data, item).appendTo("#home_tbody");
+					});
+				}
+			});
+		});
+	})
+})

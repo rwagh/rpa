@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.lang.Boolean"/>
+<fullyQualifiedTypeName name="rpa.models.Function"/>
+<fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+<fullyQualifiedTypeName name="rpa.models.ProcessEntity"/>
+<fullyQualifiedTypeName name="rpa.models.Activity"/>
+<fullyQualifiedTypeName name="rpa.models.Group"/>
+<fullyQualifiedTypeName name="rpa.models.Role"/>
+<fullyQualifiedTypeName name="rpa.models.User"/>
+<fullyQualifiedTypeName name="rpa.models.Page"/>
+<fullyQualifiedTypeName name="rpa.models.UserAccount"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
+<fullyQualifiedTypeName name="rpa.models.ResponseContext"/>
+<fullyQualifiedTypeName name="com.sun.istack.internal.Nullable"/>
+</qualifiedTypeNameHistroy>

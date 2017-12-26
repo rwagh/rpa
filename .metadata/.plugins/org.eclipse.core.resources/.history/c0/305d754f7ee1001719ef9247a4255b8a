@@ -1,0 +1,7 @@
+<tr>	
+	<td >${name}</td>	
+	<td >${status}</td>
+	<td style="width:150px">
+		<a role="button" class="edit" data-id="${id}" data-name="${name}" data-desc="${status}" data-pid="${processId}">Start</a> | <a role="button"  data-id="${id}" class="delete">Delete</a>
+		</td>
+</tr>
