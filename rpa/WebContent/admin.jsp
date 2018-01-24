@@ -238,7 +238,7 @@
 	</div>
 	<div id="userModal" class="modal fade" role="dialog"
 		data-backdrop="static">
-		<div class="modal-dialog">
+		<div class="modal-dialog  modal-lg">
 			<form id="userForm">
 				<!-- Modal content-->
 				<div class="modal-content">
@@ -258,8 +258,6 @@
 										oninvalid="this.setCustomValidity('First Name can\'t left empty!');"
 										oninput="this.setCustomValidity('')" required />
 								</div>
-							</div>
-							<div class="col-lg-6 col-md-6">
 								<div class="form-group">
 									<label>Last Name</label> <input type="text" id="LastName"
 										name="LastName" placeholder="Last Name" title="Last Name"
@@ -267,11 +265,6 @@
 										oninvalid="this.setCustomValidity('Last Name can\'t left empty!');"
 										oninput="this.setCustomValidity('')" required />
 								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-lg-6 col-md-6">
 								<div class="form-group">
 									<label>Email</label> <input type="text" id="Email" name="Email"
 										placeholder="Email" title="Email"
@@ -279,8 +272,6 @@
 										oninvalid="this.setCustomValidity('Email can\'t left empty!');"
 										oninput="this.setCustomValidity('')" required />
 								</div>
-							</div>
-							<div class="col-lg-6 col-md-6">
 								<div class="form-group">
 									<label>Mobile</label> <input type="text" id="Mobile"
 										name="Mobile" placeholder="Mobile" title="Mobile"
@@ -288,10 +279,6 @@
 										oninvalid="this.setCustomValidity('Mobile can\'t left empty!');"
 										oninput="this.setCustomValidity('')" required />
 								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-lg-6 col-md-6">
 								<div class="form-group">
 									<label>Username</label> <input type="text" id="Username"
 										name="Username" placeholder="Username" title="Username"
@@ -299,9 +286,6 @@
 										oninvalid="this.setCustomValidity('Username can\'t left empty!');"
 										oninput="this.setCustomValidity('')" required />
 								</div>
-							</div>
-
-							<div class="col-lg-6 col-md-6" id="pwd">
 								<div class="form-group">
 									<label>Password</label> <input type="password" id="Password"
 										name="Password" placeholder="Password" title="Password"
@@ -309,10 +293,6 @@
 										oninvalid="this.setCustomValidity('Password can\'t left empty!');"
 										oninput="this.setCustomValidity('')" required />
 								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-lg-6 col-md-6">
 								<div class="form-group">
 									<label>Role</label> <select type="text" id="RoleId"
 										name="RoleId" title="Role"
@@ -320,30 +300,27 @@
 										oninvalid="this.setCustomValidity('User Role can\'t left empty!');"
 										oninput="this.setCustomValidity('')" required></select>
 								</div>
-							</div>
-
-							<div class="col-lg-6 col-md-6" id="pwd">
 								<div class="form-group">
-									<label>Function</label> 
-									<select id="FunctionId"	name="FunctionId" title="Select Function" class="form-control input-sm"></select>
+									<label>Group</label> 
+									<select id="GroupId"	name="GroupId" title="Select Lob" class="form-control input-sm"></select>
 								</div>
+						
+							</div>
+							<div class="col-lg-6 col-md-6">
+								
+								<div class="form-group">
+									<label>Accessible Pages</label> 
+									
+									<ul id="PageId"	name="PageId" class="list-unstyled">
+									</ul>
+									
+								</div>
+							
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-lg-6 col-md-6" id="pwd">
-								<div class="form-group">
-									<label>Lob</label> 
-									<select id="LobId"	name="LobId" title="Select Lob" class="form-control input-sm"></select>
-								</div>
-							</div>
-							<div class="col-lg-6 col-md-6" id="pwd">
-								<div class="form-group">
-									<label>Process</label> 
-									<select id="ProcessId"	name="ProcessId" title="Select Process" class="form-control input-sm"></select>
-								</div>
-							</div>
-						</div>
-					</div>
+</div>
+					
+					
 					<div class="modal-footer">
 						<button type="submit" id="SaveUser" class="btn btn-default btn-sm">Save</button>
 						<button type="button" class="btn btn-danger btn-sm"

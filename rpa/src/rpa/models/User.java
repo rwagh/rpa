@@ -21,6 +21,7 @@ public class User {
 	@Nullable
 	private int processId;
 	private String processName;
+	private int[] pageids;
 	
 	public int getId() {
 		return id;
@@ -111,5 +112,13 @@ public class User {
 	}
 	public void setProcessName(String processName) {
 		this.processName = processName;
-	}	
+	}
+        public int[] getpageids()
+        {
+                return pageids;
+        }
+        public void setpageids(int[] accessiblePageIds)
+        {
+                this.pageids = accessiblePageIds;
+        }	
 }

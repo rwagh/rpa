@@ -37,7 +37,10 @@ $(function() {
 	
 	$.getJSON("group", {}, function(result) {
 		$("#group_tbody").empty();
+		$("#userModal #GroupId").empty();
+		$("#userModal #GroupId").append("<option value=''>Select</option>")
 		$.each(result, function(index, item) {
+			$("#userModal #GroupId").append("<option value='" + item.id +"'>" + item.name +"</option>");
 			$.get("templates/group_item.html", function(tmp_data) {
 				$.tmpl(tmp_data, item).appendTo("#group_tbody");
 			});
@@ -121,14 +124,25 @@ $(function() {
 		$("#userModal #RoleId").empty();
 		$("#userModal #RoleId").append("<option value=''>Select</option>")
 		$.each(result, function(index, item) {
-			$("#userModal #RoleId").append("<option value='" + item.id +"'>" + item.name +"</option>")
+			$("#userModal #RoleId").append("<option value='" + item.id +"'>" + item.name +"</option>");
 			$.get("templates/role_item.html", function(tmp_data) {
 				$.tmpl(tmp_data, item).appendTo("#role_tbody");
 			});
 		});
 	});
 	
-	$.getJSON("function", {}, function(result) {		
+	/*$.getJSON("pages",{},function(result) 
+	{
+		$("#userModal #PageId").empty();
+		$("#userModal #PageId").append("<option value=''>Select</option>");
+		$.each(result, function(index, item) {
+		
+		});
+		
+	});*/
+	
+	
+/*	$.getJSON("function", {}, function(result) {		
 		$("#userModal #FunctionId").empty();
 		$("#userModal #FunctionId").append("<option value=''>Select</option>")
 		
@@ -142,8 +156,8 @@ $(function() {
 			$("#userModal #FunctionId").append("<option value='" + item.id +"'>" + item.name +"</option>")			
 		});
 	});
-	
-	$("#userModal #FunctionId").change(function(){
+	*/
+/*	$("#userModal #FunctionId").change(function(){
 		$.getJSON("lobs", {}, function(result) {		
 			$("#userModal #LobId").empty();
 			$("#userModal #LobId").append("<option value=''>Select</option>")
@@ -161,7 +175,7 @@ $(function() {
 				$("#userModal #ProcessId").append("<option value='" + item.id +"'>" + item.name +"</option>")			
 			});
 		});
-	});
+	});*/
 	
 	$("#SearchRole").click(function() {
 		$.getJSON("roles?RoleName=" + $("#tabRoles #RoleName").val(), {
@@ -264,6 +278,7 @@ $(function() {
 		var lname = $(this).data("lastname");
 		var email = $(this).data("email");
 		var mobile = $(this).data("mobile");
+		var pageids=$(this).data("pageids");
 		
 		//$("#userModal #pwd").hide();
 		$("#userModal #Password").val("");
@@ -275,8 +290,9 @@ $(function() {
 		$("#userModal #LastName").val(lname);			
 		$("#userModal #Email").val(email);
 		$("#userModal #Mobile").val(mobile);
-			
-		$.getJSON("function", {}, function(result) {		
+		
+		
+	/*	$.getJSON("function", {}, function(result) {		
 			$("#userModal #FunctionId").empty();
 			$("#userModal #FunctionId").append("<option value=''>Select</option>")
 			
@@ -309,7 +325,24 @@ $(function() {
 					$("#userModal #ProcessId").append("<option value='" + item.id +"'>" + item.name +"</option>")			
 				});
 			});
-		});
+		});*/
+		
+		$.getJSON("pages", {}, function(result) {
+			
+			$("#userModal #PageId").empty();
+			$.each(result, function(index, item) {
+				if(jQuery.inArray(item.id,pageids)!== -1)
+				{
+					$("#userModal #PageId").append("<li value='" + item.id + "'><input type='checkbox' checked>&nbsp<span>" + item.name + "</span></li>");
+				}	
+				else
+				{	
+					$("#userModal #PageId").append("<li value='" + item.id + "'><input type='checkbox'>&nbsp<span>" + item.name + "</span></li>");
+				}
+				});
+				
+			});
+		
 		
 		$("#userModal").modal("show");
 	});
@@ -345,6 +378,24 @@ $(function() {
 		
 		var json = $("#userForm").serializeObject();
 		var flag = $("#userForm")[0].checkValidity();		
+		var  pageList=[];
+		$("#userModal #PageId li").each(function( index ) 
+		{
+			var $cb = $(this).find(":checkbox");
+			
+			if ($cb.prop("checked")) {
+				
+				pageList.push($(this).val());
+			}
+		});
+	
+		alert("PageList Size:"+pageList.length);
+		
+		
+		var data = { pagelist: pageList};
+		
+		$.extend(json, data);
+		
 		if(flag){						
 			$.ajax({
 				data : json,
@@ -363,9 +414,14 @@ $(function() {
 	});
 	
 	$.getJSON("pages", {}, function(result) {
+
 		$("#page_tbody").empty();
+		$("#userModal #PageId").empty();
 		$.each(result, function(index, item) {
+		
+			$("#userModal #PageId").append("<li value='" + item.id + "'><input type='checkbox'>&nbsp<span>" + item.name + "</span></li>");
 			$.get("templates/page_item.html", function(tmp_data) {
+				
 				$.tmpl(tmp_data, item).appendTo("#page_tbody");
 			});
 		});

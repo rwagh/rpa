@@ -21,7 +21,7 @@ import rpa.models.Step;
 @WebServlet("/steps")
 public class steps extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	DataHelper helper = new DataHelper("jdbc:mysql://localhost:3306/rpauidb?user=root&password=root");
+	DataHelper helper = new DataHelper();
     /**
      * @see HttpServlet#HttpServlet()
      */
