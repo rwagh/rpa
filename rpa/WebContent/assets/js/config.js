@@ -5,26 +5,25 @@ $(function() {
 	});
 
 	$('.addfunc').click(function() {
-		$("#functionModal #ftype").val(1);
-		$("#functionModal #FunctionName").val("");
-		$("#functionModal #Description").val("");
+		$("#functionModal .type").val(1);
+		$("#functionModal .name").val("");
+		$("#functionModal .description").val("");
 	});
 
 	$('.addlob').click(function() {
-		$("#lobModal #id").val("");
-		$("#lobModal #type").val(1);
-		$("#lobModal #LobName").val("");
-		$("#lobModal #Description").val("");
-		$("#lobModal #FunctionId").val("");
+		$("#lobModal .id").val("");
+		$("#lobModal .type").val(1);
+		$("#lobModal .name").val("");
+		$("#lobModal .description").val("");
+		$("#lobModal .function").val("");
 	});
 
 	$('.addprocess').click(function() {
-		$("#processModal #id").val("");
-		$("#processModal #type").val(1);
-		$("#processModal #Name").val("");
-		$("#processModal #Description").val("");
-		$("#processModal #LobId").val("");
-		$("#processModal #ParentId").val("");
+		$("#processModal .id").val("");
+		$("#processModal .type").val(1);
+		$("#processModal .name").val("");
+		$("#processModal .description").val("");
+		$("#processModal .lob").val("");		
 	});
 
 	$("#FunctionSearch").click(function() {
@@ -71,27 +70,30 @@ $(function() {
 	$.getJSON("function", {}, function(result) {
 		$("#func_tbody").empty();
 
-		$("#menu3 #FunctionId").empty();
-		$("#menu3 #FunctionId").append(
+		$("#menu3 .function").empty();
+		$("#menu3 .function").append(
 				"<option value=''>Select Function</option>");
-		$("#stepModal #FunctionId").empty();
-		$("#stepModal #FunctionId").append(
+		$("#stepModal .function").empty();
+		$("#stepModal .function").append(
 				"<option value=''>Select Function</option>");
 
 		$.each(result, function(index, item) {
-			$("#lobModal #FunctionId").append(
+			$("#lobModal .function").append(
 					"<option value=" + item.id +">" + item.name
 							+ "</option>");
-			$("#processModal #FunctionId").append(
+			$("#processModal .function").append(
 					"<option value=" + item.id +">" + item.name
 							+ "</option>");
-			$("#activityModal #FunctionId").append(
+			$("#subProcessModal .function").append(
 					"<option value=" + item.id +">" + item.name
 							+ "</option>");
-			$("#menu3 #FunctionId").append(
+			$("#activityModal .function").append(
 					"<option value=" + item.id +">" + item.name
 							+ "</option>");
-			$("#stepModal #FunctionId").append(
+			$("#menu3 .function").append(
+					"<option value=" + item.id +">" + item.name
+							+ "</option>");
+			$("#stepModal .function").append(
 					"<option value=" + item.id +">" + item.name
 							+ "</option>");
 			$.get("templates/func_item.html", function(tmp_data) {
@@ -243,23 +245,23 @@ $(function() {
 										});
 					});
 
-	$("#stepModal #FunctionId").change(
+	$("#stepModal .function").change(
 			function() {
 				var fid = $(this).val();
 				$.getJSON("lobs", {}, function(result) {
-					$("#stepModal #LobId").empty();
-					$("#stepModal #LobId").append(
+					$("#stepModal .lob").empty();
+					$("#stepModal .lob").append(
 							"<option value=''>Select Lob</option>");
 					$.each(result, function(index, item) {
 						if (item.functionId == fid) {
-							$("#stepModal #LobId").append(
+							$("#stepModal .lob").append(
 									"<option value=" + item.id +">"
 											+ item.name + "</option>");
 						}
 					});
 				});
 			});
-	$("#stepModal #LobId")
+	$("#stepModal .lob")
 			.change(
 					function() {
 						var lid = $(this).val();
@@ -268,9 +270,9 @@ $(function() {
 										"manageprocess",
 										{},
 										function(result) {
-											$("#stepModal #ProcessId")
+											$("#stepModal .process")
 													.empty();
-											$("#stepModal #ProcessId")
+											$("#stepModal .process")
 													.append(
 															"<option value=''>Select Process</option>");
 											$
@@ -281,7 +283,7 @@ $(function() {
 																	item) {
 																if (item.lobId == lid) {
 																	$(
-																			"#stepModal #ProcessId")
+																			"#stepModal .process")
 																			.append(
 																					"<option value=" + item.id +">"
 																							+ item.name
@@ -326,8 +328,9 @@ $(function() {
 	$("#SaveFunction").click(
 			function() {
 				var jsonForm = $("#functionForm").serializeObject();
+				console.log(jsonForm);
 				$.ajax({
-					data : jsonForm, //mydata={"name":"abc","age":"21"}
+					data : jsonForm,
 					method : "POST",
 					url : "function",
 					success : function(result) {
@@ -449,60 +452,39 @@ $(function() {
 		}
 	});
 
-	$("#func_tbody")
-			.on(
-					'click',
-					'.delete',
-					function() {
-						if (confirm("Are you sure, want to delete?")) {
-							var key = $(this).data("id");
-							var jsonForm = {
-								ftype : 3,
-								id : key
-							};
-							$
-									.ajax({
-										date : jsonForm,
-										method : "POST",
-										url : "function?ftype=3&id="
-												+ key,
-										success : function(result) {
-											$("#func_tbody").empty();
-											$
-													.each(
-															result,
-															function(
-																	index,
-																	item) {
-																$
-																		.get(
-																				"templates/func_item.html",
-																				function(
-																						tmp_data) {
-																					$
-																							.tmpl(
-																									tmp_data,
-																									item)
-																							.appendTo(
-																									"#func_tbody");
-																				});
-															});
-											$("#functionModal").modal(
-													"hide");
-										}
-									});
-						}
+	$("#func_tbody").on('click', '.delete', function() {
+		if (confirm("Are you sure, want to delete?")) {
+			var key = $(this).data("id");
+			var jsonForm = {
+				type : 3,
+				id : key
+			};
+			$.ajax({
+				date : jsonForm,
+				method : "POST",
+				url : "function?type=3&id=" + key,
+				success : function(result) {
+					$("#func_tbody").empty();
+					$.each(result, function(index, item) {
+						$.get("templates/func_item.html", function(tmp_data) {
+							$.tmpl(tmp_data, item).appendTo("#func_tbody");
+						});
 					});
+					$("#functionModal").modal("hide");
+				}
+			});
+		}
+	});
 
 	$("#func_tbody").on('click', '.edit', function() {
 		var id = $(this).data("id");
 		var name = $(this).data("name");
 		var desc = $(this).data("desc");
 		$("#functionModal").modal("show");
-		$("#ftype").val(2);
-		$("#id").val(id);
-		$("#FunctionName").val(name);
-		$("#Description").val(desc);
+		$("#functionModal .type").val(2);
+		$("#functionModal .id").val(id);
+		$("#functionModal .name").val(name);
+		$("#functionModal .description").val(desc);
 	});
 
 	$("#lob_tbody").on('click', '.edit', function() {
@@ -511,236 +493,150 @@ $(function() {
 		var desc = $(this).data("desc");
 		var funcid = $(this).data("funcid");
 		$("#lobModal").modal("show");
-		$("#lobModal #type").val(2);
-		$("#lobModal #id").val(id);
-		$("#lobModal #LobName").val(name);
-		$("#lobModal #Description").val(desc);
+		$("#lobModal .type").val(2);
+		$("#lobModal .id").val(id);
+		$("#lobModal .name").val(name);
+		$("#lobModal .description").val(desc);
 		if (funcid > 0) {
-			$("#lobModal #FunctionId").val(funcid);
+			$("#lobModal .function").val(funcid);
 		} else {
-			$("#lobModal #FunctionId").val("");
+			$("#lobModal .function").val("");
 		}
 	});
 
-	$("#lob_tbody")
-			.on(
-					'click',
-					'.delete',
-					function() {
+	$("#lob_tbody").on('click', '.delete', function() {
 						if (confirm("Are you sure, want to delete?")) {
 							var key = $(this).data("id");
 							var jsonForm = {
 								type : 3,
 								id : key
 							};
-							$
-									.ajax({
-										date : jsonForm,
-										method : "POST",
-										url : "lobs?type=3&id=" + key,
-										success : function(result) {
-											$("#lob_tbody").empty();
-											$
-													.each(
-															result,
-															function(
-																	index,
-																	item) {
-																$
-																		.get(
-																				"templates/lob_item.html",
-																				function(
-																						tmp_data) {
-																					$
-																							.tmpl(
-																									tmp_data,
-																									item)
-																							.appendTo(
-																									"#lob_tbody");
-																				});
-															});
-											$("#lobModal")
-													.modal("hide");
-										}
+							$.ajax({
+								date : jsonForm,
+								method : "POST",
+								url : "lobs?type=3&id=" + key,
+								success : function(result) {
+									$("#lob_tbody").empty();
+									$.each(result, function(index, item) {
+										$.get("templates/lob_item.html", function(tmp_data) {
+											$.tmpl(tmp_data, item).appendTo("#lob_tbody");
+										});
 									});
+									$("#lobModal").modal("hide");
+								}
+							});
 						}
 					});
 
-	$("#process_tbody").on(
-			'click',
-			'.edit',
-			function() {
-				var id = $(this).data("id");
-				var name = $(this).data("name");
-				var desc = $(this).data("desc");
-				var fid = $(this).data("funcid");
-				var lobid = $(this).data("lobid");
-				var pid = $(this).data("pid");
+	$("#process_tbody").on('click','.edit',function() {
+		var id = $(this).data("id");
+		var name = $(this).data("name");
+		var desc = $(this).data("desc");
+		var fid = $(this).data("funcid");
+		var lobid = $(this).data("lobid");
+		var pid = $(this).data("pid");
 
-				$("#processModal").modal("show");
-				$("#processModal #type").val(2);
-				$("#processModal #id").val(id);
-				$("#processModal #Name").val(name);
-				$("#processModal #Description").val(desc);
-				$("#processModal #FunctionId").val(fid);
-				$.getJSON("lobs", {}, function(result) {
-					$("#processModal #LobId").empty();
-					$("#processModal #LobId").append(
-							"<option value=''>Select Lob</option>");
-					$.each(result, function(index, item) {
-						$("#processModal #LobId").append(
-								"<option value='" + item.id +"'>"
-										+ item.name + "</option>");
+		$("#processModal").modal("show");
+		$("#processModal .type").val(2);
+		$("#processModal .id").val(id);
+		$("#processModal .name").val(name);
+		$("#processModal .description").val(desc);
+		$("#processModal .function").val(fid);
+		$.getJSON("lobs", {}, function(result) {
+			$("#processModal .lob").empty();
+			$("#processModal .lob").append("<option value=''>Select Lob</option>");
+			$.each(result, function(index, item) {
+				$("#processModal .lob").append("<option value='" + item.id +"'>" + item.name + "</option>");
+			});
+			$("#processModal .lob").val(lobid);
+		})				
+	});
+
+	$("#process_tbody").on('click', '.delete', function() {
+		if (confirm("Are you sure, want to delete?")) {
+			var key = $(this).data("id");
+			var jsonForm = {
+				type : 3,
+				id : key
+			};
+			$.ajax({
+				date : jsonForm,
+				method : "POST",
+				url : "manageprocess?type=3&id="+ key,
+				success : function(result) {
+					$("#process_tbody").empty();
+					$.each(result,function(index,item) {
+						$.get("templates/process_item.html",function(tmp_data) {
+							$.tmpl(tmp_data,item).appendTo("#process_tbody");
+						});
 					});
-					$("#processModal #LobId").val(lobid);
-				})
-				if (pid > 0) {
-					$("#processModal #ParentId").val(pid);
-				} else {
-					$("#processModal #ParentId").val("");
 				}
 			});
+		}
+	});
 
-	$("#process_tbody")
-			.on(
-					'click',
-					'.delete',
-					function() {
-						if (confirm("Are you sure, want to delete?")) {
-							var key = $(this).data("id");
-							var jsonForm = {
-								type : 3,
-								id : key
-							};
-							$
-									.ajax({
-										date : jsonForm,
-										method : "POST",
-										url : "manageprocess?type=3&id="
-												+ key,
-										success : function(result) {
-											$("#process_tbody").empty();
-											$
-													.each(
-															result,
-															function(
-																	index,
-																	item) {
-																$
-																		.get(
-																				"templates/process_item.html",
-																				function(
-																						tmp_data) {
-																					$
-																							.tmpl(
-																									tmp_data,
-																									item)
-																							.appendTo(
-																									"#process_tbody");
-																				});
-															});
-										}
-									});
-						}
-					});
+	$("#activity_tbody").on('click', '.edit', function() {
+		var id = $(this).data("id");
+		var name = $(this).data("name");
+		var desc = $(this).data("desc");
+		var fid = $(this).data("funcid");
+		var lobid = $(this).data("lobid");
+		var procid = $(this).data("procid");
 
-	$("#activity_tbody").on(
-			'click',
-			'.edit',
-			function() {
-				var id = $(this).data("id");
-				var name = $(this).data("name");
-				var desc = $(this).data("desc");
-				var fid = $(this).data("funcid");
-				var lobid = $(this).data("lobid");
-				var procid = $(this).data("procid");
+		$("#activityModal").modal("show");
+		$("#activityModal .type").val(2);
+		$("#activityModal .id").val(id);
+		$("#activityModal .name").val(name);
+		$("#activityModal .description").val(desc);
+		$("#activityModal .function").val(fid);
+		$("#activityModal").modal("show");
 
-				$("#activityModal").modal("show");
-				$("#activityModal #type").val(2);
-				$("#activityModal #id").val(id);
-				$("#activityModal #Name").val(name);
-				$("#activityModal #Description").val(desc);
-				$("#activityModal #FunctionId").val(fid);
-				//$("#activity_tbody #ProcessId").val(fid);
-				$("#activityModal").modal("show");
-
-				$.getJSON("lobs", {}, function(result) {
-					$("#activityModal #LobId").empty();
-					$("#activityModal #LobId").append(
-							"<option value=''>Select Lob</option>");
-					$.each(result, function(index, item) {
-						if (item.functionId == fid) {
-							$("#activityModal #LobId").append(
-									"<option value='" + item.id +"'>"
-											+ item.name + "</option>");
-						}
-					});
-					$("#activityModal #LobId").val(lobid);
-				})
-
-				$.getJSON("manageprocess", {}, function(result) {
-					$("#activityModal #ProcessId").empty();
-					$("#activityModal #ProcessId").append(
-							"<option value=''>Select Lob</option>");
-					$.each(result, function(index, item) {
-						if (item.lobId == lobid) {
-							$("#activityModal #ProcessId").append(
-									"<option value='" + item.id +"'>"
-											+ item.name + "</option>");
-						}
-					});
-					$("#activityModal #ProcessId").val(procid);
-				})
-				/* if(pid>0){
-					$("#processModal #ParentId").val(pid);
-				}else{
-					$("#processModal #ParentId").val("");
-				} */
+		$.getJSON("lobs", {}, function(result) {
+			$("#activityModal .lob").empty();
+			$("#activityModal .lob").append("<option value=''>Select Lob</option>");
+			$.each(result, function(index, item) {
+				if (item.functionId == fid) {
+					$("#activityModal .lob").append("<option value='" + item.id +"'>" + item.name + "</option>");
+				}
 			});
+			$("#activityModal .lob").val(lobid);
+		});
 
-	$("#activity_tbody")
-			.on(
-					'click',
-					'.delete',
-					function() {
-						if (confirm("Are you sure, want to delete?")) {
-							var key = $(this).data("id");
-							var jsonForm = {
-								type : 3,
-								id : key
-							};
-							$
-									.ajax({
-										date : jsonForm,
-										method : "POST",
-										url : "activity?type=3&id="
-												+ key,
-										success : function(result) {
-											$("#activity_tbody")
-													.empty();
-											$
-													.each(
-															result,
-															function(
-																	index,
-																	item) {
-																$
-																		.get(
-																				"templates/activity_item.html",
-																				function(
-																						tmp_data) {
-																					$
-																							.tmpl(
-																									tmp_data,
-																									item)
-																							.appendTo(
-																									"#activity_tbody");
-																				});
-															});
-										}
-									});
-						}
+		$.getJSON("manageprocess", {}, function(result) {
+			$("#activityModal .process").empty();
+			$("#activityModal .process").append(
+					"<option value=''>Select Lob</option>");
+			$.each(result, function(index, item) {
+				if (item.lobId == lobid) {
+					$("#activityModal .process").append("<option value='" + item.id +"'>"+ item.name + "</option>");
+				}
+			});
+			$("#activityModal .process").val(procid);
+		});		
+	});
+
+	$("#activity_tbody").on('click', '.delete', function() {
+		if (confirm("Are you sure, want to delete?")) {
+			var key = $(this).data("id");
+			var jsonForm = {
+				type : 3,
+				id : key
+			};
+			$.ajax({
+				date : jsonForm,
+				method : "POST",
+				url : "activity?type=3&id="+ key,
+				success : function(result) {
+					$("#activity_tbody").empty();
+					$.each(result, function(index, item) {
+						$.get("templates/activity_item.html", function(tmp_data) {
+							$.tmpl(tmp_data,item).appendTo("#activity_tbody");
+						});
 					});
+				}
+			});
+		}
+	});
 
 	$("#step_tbody").on('click', '.edit', function() {
 		var id = $(this).data("id");
@@ -752,48 +648,48 @@ $(function() {
 		var acid = $(this).data("acid");
 		var req = $(this).data("req");
 
-		$("#stepModal #type").val(2);
-		$("#stepModal #id").val(id);
-		$("#stepModal #Name").val(name);
-		$("#stepModal #Description").val(desc);				
+		$("#stepModal .type").val(2);
+		$("#stepModal .id").val(id);
+		$("#stepModal .name").val(name);
+		$("#stepModal .description").val(desc);				
 		$("#stepModal #Required").val(req);
 		
 		if (funcid > 0) {
-			$("#stepModal #FunctionId").val(funcid);
+			$("#stepModal .function").val(funcid);
 			$.getJSON("lobs",{}, function(result) {
-				$("#stepModal #LobId").empty();
-				$("#stepModal #LobId").append("<option value=''>Select Lob</option>");
+				$("#stepModal .lob").empty();
+				$("#stepModal .lob").append("<option value=''>Select Lob</option>");
 				$.each(result,function(index, item) {
 					if (item.functionId == funcid) {
-						$("#stepModal #LobId").append("<option value=" + item.id +">" + item.name + "</option>");
+						$("#stepModal .lob").append("<option value=" + item.id +">" + item.name + "</option>");
 					}
 				});
-				$("#stepModal #LobId").val(lobid);
+				$("#stepModal .lob").val(lobid);
 			});
 
 			$.getJSON("manageprocess",{},function(result) {
-				$("#stepModal #ProcessId").empty();
-				$("#stepModal #ProcessId").append("<option value=''>Select Process</option>");
+				$("#stepModal .process").empty();
+				$("#stepModal .process").append("<option value=''>Select Process</option>");
 				$.each(result,function(index,item) {
 					if (item.lobId == lobid) {
-						$("#stepModal #ProcessId").append("<option value=" + item.id +">" + item.name + "</option>");
+						$("#stepModal .process").append("<option value=" + item.id +">" + item.name + "</option>");
 					}
 				});
-				$("#stepModal #ProcessId").val(procid);
+				$("#stepModal .process").val(procid);
 			});
 
 			$.getJSON("activity",{},function(result) {
-				$("#stepModal #ActivityId").empty();
-				$("#stepModal #ActivityId").append("<option value=''>Select Activity</option>");										
+				$("#stepModal .activity").empty();
+				$("#stepModal .activity").append("<option value=''>Select Activity</option>");										
 				$.each(result,function(index,item) {
 					if (item.processId == procid) {
-						$("#stepModal #ActivityId").append("<option value=" + item.id +">"+ item.name+ "</option>");
+						$("#stepModal .activity").append("<option value=" + item.id +">"+ item.name+ "</option>");
 					}
 				});
-				$("#stepModal #ActivityId").val(acid);
+				$("#stepModal .activity").val(acid);
 			});
 		} else {
-			$("#stepModal #FunctionId").val("");
+			$("#stepModal .function").val("");
 		}
 		$("#stepModal").modal("show");
 	});

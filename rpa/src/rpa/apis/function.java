@@ -39,7 +39,7 @@ public class function extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String json = "";
-		String find = request.getParameter("Name");
+		String find = request.getParameter("FunctionName");
 		ArrayList<Function> list = new ArrayList<Function>();		
 		
 		list = helper.getFunctionList(find);
@@ -60,16 +60,16 @@ public class function extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		if (request.getParameter("ftype") != null) {
-			int type = Integer.valueOf(request.getParameter("ftype"));
+		if (request.getParameter("type") != null) {
+			int type = Integer.valueOf(request.getParameter("type"));
 			Function model = new Function();
 			if (type == 1) {				
-				model.setName(request.getParameter("FunctionName"));
+				model.setName(request.getParameter("Name"));
 				model.setDescription(request.getParameter("Description"));
 				helper.add(model);
 			} else if (type == 2) {				
 				model.setId(Integer.valueOf(request.getParameter("id")));
-				model.setName(request.getParameter("FunctionName"));
+				model.setName(request.getParameter("Name"));
 				model.setDescription(request.getParameter("Description"));
 				helper.update(model);
 			} else if (type == 3) {				

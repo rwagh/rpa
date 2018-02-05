@@ -80,16 +80,7 @@ public class manageprocess extends HttpServlet {
 				model.setId(Integer.valueOf(request.getParameter("id")));
 				model.setName(request.getParameter("Name"));
 				model.setDescription(request.getParameter("Description"));
-				model.setLobId(Integer.valueOf(request.getParameter("LobId")));
-				
-				try {
-					int pid = Integer.valueOf(request.getParameter("ParentId"));								
-					if(pid > 0) {
-						model.setParentId(pid);
-					}
-				}catch(Exception ex) {
-					
-				}
+				model.setLobId(Integer.valueOf(request.getParameter("LobId")));				
 				
 				helper.update(model);
 			} else if (type == 3) {

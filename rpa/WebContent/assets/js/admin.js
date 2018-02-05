@@ -35,89 +35,13 @@ $(function() {
 		$("#pageModal #Url").val("");
 	});
 	
-	$.getJSON("group", {}, function(result) {
-		$("#group_tbody").empty();
-		$("#userModal #GroupId").empty();
-		$("#userModal #GroupId").append("<option value=''>Select</option>")
+	$.getJSON("lobs", {}, function(result) {		
+		$("#userModal #LobId").empty();
+		$("#userModal #LobId").append("<option value=''>Select</option>")
 		$.each(result, function(index, item) {
-			$("#userModal #GroupId").append("<option value='" + item.id +"'>" + item.name +"</option>");
-			$.get("templates/group_item.html", function(tmp_data) {
-				$.tmpl(tmp_data, item).appendTo("#group_tbody");
-			});
+			$("#userModal #LobId").append("<option value='" + item.id +"'>" + item.name +"</option>");			
 		});
 	});
-	
-	$("#SearchGroup").click(function() {
-		$.getJSON("group?GroupName=" + $("#tabGroups #GroupName").val(), {
-			GroupName : $("#tabGroups #GroupName").val()
-		}, function(result) {
-			$("#group_tbody").empty();
-			$.each(result, function(index, item) {
-				$.get("templates/group_item.html", function(tmp_data) {
-					$.tmpl(tmp_data, item).appendTo("#group_tbody");
-				});
-			});
-		});
-		return false;
-	});
-	
-	$("#group_tbody").on('click', '.edit', function() {
-		var id = $(this).data("id");
-		var name = $(this).data("name");				
-		
-		$("#groupModal #type").val(2);
-		$("#groupModal #id").val(id);
-		$("#groupModal #Name").val(name);				
-		
-		$("#groupModal").modal("show");
-	});
-
-	$("#group_tbody").on('click', '.delete', function() {
-		if (confirm("Are you sure, want to delete?")) {
-			var key = $(this).data("id");
-			var jsonForm = {
-				type : 3,
-				id : key
-			};
-			$.ajax({
-				date : jsonForm,
-				method : "POST",
-				url : "group?type=3&id="+ key,
-				success : function(result) {										
-					$("#group_tbody").empty();
-					$.each(result, function(index, item) {
-						$.get("templates/group_item.html", function(tmp_data) {
-							$.tmpl(tmp_data, item).appendTo("#group_tbody");
-						});
-					});							
-				}
-			});
-		}
-	});
-				
-	$("#SaveGroup").click(function() {
-		var json = $("#groupForm").serializeObject();
-		var flag = $("#groupForm")[0].checkValidity();
-		var tmplData = "";
-		$.get("templates/group_item.html", function(tmp_data) {
-			tmplData = tmp_data;					
-		});
-		if(flag){		
-			$.ajax({
-				data : json,
-				method : "POST",
-				url : "group",
-				success : function(result) {							
-					$("#group_tbody").empty();							
-					$.each(result, function(index, item) {
-						$.tmpl(tmplData, item).appendTo("#group_tbody");								
-					});
-					$("#groupModal").modal("hide");
-				}
-			});
-			return false;
-		}
-	});			
 	
 	$.getJSON("roles", {}, function(result) {
 		$("#role_tbody").empty();
@@ -130,53 +54,7 @@ $(function() {
 			});
 		});
 	});
-	
-	/*$.getJSON("pages",{},function(result) 
-	{
-		$("#userModal #PageId").empty();
-		$("#userModal #PageId").append("<option value=''>Select</option>");
-		$.each(result, function(index, item) {
-		
-		});
-		
-	});*/
-	
-	
-/*	$.getJSON("function", {}, function(result) {		
-		$("#userModal #FunctionId").empty();
-		$("#userModal #FunctionId").append("<option value=''>Select</option>")
-		
-		$("#userModal #LobId").empty();
-		$("#userModal #LobId").append("<option value=''>Select</option>")
-			
-		$("#userModal #ProcessId").empty();
-		$("#userModal #ProcessId").append("<option value=''>Select</option>")
-			
-		$.each(result, function(index, item) {
-			$("#userModal #FunctionId").append("<option value='" + item.id +"'>" + item.name +"</option>")			
-		});
-	});
-	*/
-/*	$("#userModal #FunctionId").change(function(){
-		$.getJSON("lobs", {}, function(result) {		
-			$("#userModal #LobId").empty();
-			$("#userModal #LobId").append("<option value=''>Select</option>")
-			$.each(result, function(index, item) {
-				$("#userModal #LobId").append("<option value='" + item.id +"'>" + item.name +"</option>")			
-			});
-		});
-	});
-	
-	$("#userModal #LobId").change(function(){
-		$.getJSON("manageprocess", {}, function(result) {		
-			$("#userModal #ProcessId").empty();
-			$("#userModal #ProcessId").append("<option value=''>Select</option>")
-			$.each(result, function(index, item) {
-				$("#userModal #ProcessId").append("<option value='" + item.id +"'>" + item.name +"</option>")			
-			});
-		});
-	});*/
-	
+
 	$("#SearchRole").click(function() {
 		$.getJSON("roles?RoleName=" + $("#tabRoles #RoleName").val(), {
 			RoleName : $("#tabRoles #RoleName").val()
@@ -195,9 +73,9 @@ $(function() {
 		var id = $(this).data("id");
 		var name = $(this).data("name");				
 		
-		$("#roleModal #type").val(2);
-		$("#roleModal #id").val(id);
-		$("#roleModal #Name").val(name);				
+		$("#roleModal .type").val(2);
+		$("#roleModal .id").val(id);
+		$("#roleModal .name").val(name);				
 		
 		$("#roleModal").modal("show");
 	});
@@ -226,7 +104,7 @@ $(function() {
 	});
 				
 	$("#SaveRole").click(function() {
-		var jsonForm = $("#roleForm").serializeObject();
+		var jsonForm = $("#roleForm").serializeObject();		
 		var tmpData="";
 		$.get("templates/role_item.html", function(tmp_data) {
 			tmpData = tmp_data;					
@@ -279,56 +157,22 @@ $(function() {
 		var email = $(this).data("email");
 		var mobile = $(this).data("mobile");
 		var pageids=$(this).data("pageids");
+		var rid = $(this).data("rid");
+		var lid = $(this).data("lid");
 		
-		//$("#userModal #pwd").hide();
-		$("#userModal #Password").val("");
-		$("#userModal #Password").attr("disabled","true");
-		$("#userModal #type").val(2);
-		$("#userModal #id").val(id);
+		$("#userModal .password").val("");
+		$("#userModal .password").attr("disabled","true");
+		$("#userModal .type").val(2);
+		$("#userModal .id").val(id);
 		$("#userModal #Username").val(username);
 		$("#userModal #FirstName").val(fname);
 		$("#userModal #LastName").val(lname);			
 		$("#userModal #Email").val(email);
 		$("#userModal #Mobile").val(mobile);
-		
-		
-	/*	$.getJSON("function", {}, function(result) {		
-			$("#userModal #FunctionId").empty();
-			$("#userModal #FunctionId").append("<option value=''>Select</option>")
-			
-			$("#userModal #LobId").empty();
-			$("#userModal #LobId").append("<option value=''>Select</option>")
-				
-			$("#userModal #ProcessId").empty();
-			$("#userModal #ProcessId").append("<option value=''>Select</option>")
-				
-			$.each(result, function(index, item) {
-				$("#userModal #FunctionId").append("<option value='" + item.id +"'>" + item.name +"</option>")			
-			});
-		});
-		
-		$("#userModal #FunctionId").change(function(){
-			$.getJSON("lobs", {}, function(result) {		
-				$("#userModal #LobId").empty();
-				$("#userModal #LobId").append("<option value=''>Select</option>")
-				$.each(result, function(index, item) {
-					$("#userModal #LobId").append("<option value='" + item.id +"'>" + item.name +"</option>")			
-				});
-			});
-		});
-		
-		$("#userModal #LobId").change(function(){
-			$.getJSON("manageprocess", {}, function(result) {		
-				$("#userModal #ProcessId").empty();
-				$("#userModal #ProcessId").append("<option value=''>Select</option>")
-				$.each(result, function(index, item) {
-					$("#userModal #ProcessId").append("<option value='" + item.id +"'>" + item.name +"</option>")			
-				});
-			});
-		});*/
-		
+		$("#userModal #RoleId").val(rid);
+		$("#userModal #LobId").val(lid);
+
 		$.getJSON("pages", {}, function(result) {
-			
 			$("#userModal #PageId").empty();
 			$.each(result, function(index, item) {
 				if(jQuery.inArray(item.id,pageids)!== -1)
@@ -339,11 +183,8 @@ $(function() {
 				{	
 					$("#userModal #PageId").append("<li value='" + item.id + "'><input type='checkbox'>&nbsp<span>" + item.name + "</span></li>");
 				}
-				});
-				
 			});
-		
-		
+		});
 		$("#userModal").modal("show");
 	});
 
@@ -381,19 +222,12 @@ $(function() {
 		var  pageList=[];
 		$("#userModal #PageId li").each(function( index ) 
 		{
-			var $cb = $(this).find(":checkbox");
-			
-			if ($cb.prop("checked")) {
-				
+			var $cb = $(this).find(":checkbox");		
+			if ($cb.prop("checked")) {				
 				pageList.push($(this).val());
 			}
-		});
-	
-		alert("PageList Size:"+pageList.length);
-		
-		
-		var data = { pagelist: pageList};
-		
+		});		
+		var data = { pagelist: pageList};		
 		$.extend(json, data);
 		
 		if(flag){						
@@ -446,9 +280,9 @@ $(function() {
 		var name = $(this).data("name");				
 		var url = $(this).data("nurl");
 		
-		$("#pageModal #type").val(2);
-		$("#pageModal #id").val(id);
-		$("#pageModal #Name").val(name);				
+		$("#pageModal .type").val(2);
+		$("#pageModal .id").val(id);
+		$("#pageModal .name").val(name);				
 		$("#pageModal #Url").val(url);
 		$("#pageModal").modal("show");
 	});

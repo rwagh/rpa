@@ -25,7 +25,7 @@
 				<%			
 					if(account!=null){
 						String role = account.getRole();						
-						if(role == "Administrator"){				
+						if(role.equals("Administrator")){				
 		 					out.println("<li><a href=\"admin.jsp\">Administration</a></li>");		 		
 						}
 					}

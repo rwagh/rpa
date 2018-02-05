@@ -55,12 +55,12 @@ public class roles extends HttpServlet {
 		if (request.getParameter("type") != null) {
 			int type = Integer.valueOf(request.getParameter("type"));
 			Role model = new Role();
-			if (type == 1) {				
-				model.setName(request.getParameter("RName"));				
+			if (type == 1) {
+				model.setName(request.getParameter("Name"));				
 				helper.add(model);
 			} else if (type == 2) {				
 				model.setId(Integer.valueOf(request.getParameter("id")));
-				model.setName(request.getParameter("RName"));				
+				model.setName(request.getParameter("Name"));				
 				helper.update(model);
 			} else if (type == 3) {
 				helper.delete(Integer.valueOf(request.getParameter("id")), "Roles");

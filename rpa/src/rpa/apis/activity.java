@@ -14,7 +14,6 @@ import com.google.gson.Gson;
 
 import rpa.data.DataHelper;
 import rpa.models.Activity;
-import rpa.models.ProcessEntity;
 
 /**
  * Servlet implementation class activity

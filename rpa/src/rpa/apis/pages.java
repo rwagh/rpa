@@ -55,12 +55,12 @@ public class pages extends HttpServlet {
 			int type = Integer.valueOf(request.getParameter("type"));
 			Page model = new Page();
 			if (type == 1) {				
-				model.setName(request.getParameter("PName"));				
+				model.setName(request.getParameter("Name"));				
 				model.setUrl(request.getParameter("Url"));
 				helper.add(model);
 			} else if (type == 2) {				
 				model.setId(Integer.valueOf(request.getParameter("id")));
-				model.setName(request.getParameter("PName"));
+				model.setName(request.getParameter("Name"));
 				model.setUrl(request.getParameter("Url"));
 				helper.update(model);
 			} else if (type == 3) {
