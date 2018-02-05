@@ -31,9 +31,8 @@ CREATE TABLE `users` (
   `Mobile` varchar(10) DEFAULT NULL,
   `Password` varchar(45) DEFAULT NULL,
   `RoleId` int(11) NOT NULL DEFAULT '0',
-  `FunctionId` int(11) DEFAULT NULL,
   `LobId` int(11) DEFAULT NULL,
-  `ProcessId` int(11) DEFAULT NULL,
+  `IsDeleted` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Username_UNIQUE` (`Username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
@@ -45,7 +44,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'waghravi','Ravindra','Wagh','ravindra.wagh@live.in','9904377726','Witbdc2944',1,NULL,NULL,NULL),(2,'raviwagh','Ravindra','Wagh','ravindra.wagh@live.in','9904377726','Witbdc2944',2,1,NULL,NULL);
+INSERT INTO `users` VALUES (1,'waghravi','Ravindra','Wagh','ravindra.wagh@live.in','9904377726','Witbdc2944',1,3,'\0'),(2,'raviwagh','Ravindra','Wagh','ravindra.wagh@live.in','9904377726','Witbdc2944',2,4,'\0');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-27 15:03:24
+-- Dump completed on 2018-02-05 18:55:26

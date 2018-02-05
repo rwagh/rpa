@@ -40,7 +40,7 @@ CREATE TABLE `processes` (
 
 LOCK TABLES `processes` WRITE;
 /*!40000 ALTER TABLE `processes` DISABLE KEYS */;
-INSERT INTO `processes` VALUES (3,'Testing','Testing',4,NULL),(5,'Sub Process','Sub Process',4,3);
+INSERT INTO `processes` VALUES (3,'Wealth Parent Process','Wealth Parent Process',4,0),(5,'Wealth Sub Process','Wealth Sub Process',4,3);
 /*!40000 ALTER TABLE `processes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-27 15:03:24
+-- Dump completed on 2018-02-05 18:55:26

@@ -24,12 +24,15 @@ DROP TABLE IF EXISTS `permissions`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `permissions` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Username` varchar(100) NOT NULL,
-  `RoleId` int(11) NOT NULL,
-  `LOBId` int(11) DEFAULT NULL,
-  `ProcessId` int(11) DEFAULT NULL,
+  `UserId` int(11) NOT NULL,
+  `PageId` int(11) NOT NULL,
+  `IsDeleted` bit(1) NOT NULL,
+  `CreatedBy` int(11) NOT NULL,
+  `DateCreated` date NOT NULL,
+  `UpdatedBy` int(11) DEFAULT NULL,
+  `DateUpdated` date DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,6 +41,7 @@ CREATE TABLE `permissions` (
 
 LOCK TABLES `permissions` WRITE;
 /*!40000 ALTER TABLE `permissions` DISABLE KEYS */;
+INSERT INTO `permissions` VALUES (3,12,1,'\0',2,'2018-01-04',NULL,NULL),(4,12,2,'',2,'2018-01-04',2,'2018-01-07'),(5,11,1,'',2,'2018-01-05',2,'2018-01-07'),(6,11,2,'',2,'2018-01-05',2,'2018-01-07'),(7,11,1,'',2,'2018-01-07',2,'2018-01-07'),(8,11,1,'',2,'2018-01-07',2,'2018-01-07'),(9,11,2,'',2,'2018-01-07',2,'2018-01-07'),(10,1,1,'\0',1,'2018-02-04',NULL,NULL),(11,1,2,'\0',1,'2018-02-04',NULL,NULL),(12,2,1,'\0',1,'2018-02-04',NULL,NULL),(13,2,2,'\0',1,'2018-02-04',NULL,NULL);
 /*!40000 ALTER TABLE `permissions` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-27 15:03:25
+-- Dump completed on 2018-02-05 18:55:26
